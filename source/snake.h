@@ -1,8 +1,8 @@
 /* * * * * * * * * * * * * * * * * * * * * * *
- * snake.h 									 *
+ * snake.h                                   *
  * Declaration of snake library for NDSnake  *
- *											 *
- * 2012 (c) David Barozzini (Marval13)		 *
+ *                                           *
+ * 2012 (c) David Barozzini (Marval13)       *
  * * * * * * * * * * * * * * * * * * * * * * */
 
 #include <nds.h>

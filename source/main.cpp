@@ -1,7 +1,7 @@
 /* * * * * * * * * * * * * * * * * * * *
- * main.cpp							   *
- * Main module of NDSnake			   *
- *									   *
+ * main.cpp                            *
+ * Main module of NDSnake              *
+ *                                     *
  * 2012 (c) David Barozzini (Marval13) *
  * * * * * * * * * * * * * * * * * * * */
 

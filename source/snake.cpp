@@ -1,8 +1,8 @@
 /* * * * * * * * * * * * * * * * * * * * * * * *
- * snake.c 									   *
+ * snake.c                                     *
  * Implementation of snake library for NDSnake *
- *											   *
- * 2012 (c) David Barozzini (Marval13)		   *
+ *                                             *
+ * 2012 (c) David Barozzini (Marval13)         *
  * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include "snake.h"
