@@ -1,0 +1,11 @@
+*.o
+*.d
+*.map
+
+*.arm9
+*.elf
+*.nds
+*.sublime-project
+*.sublime-workspace
+soundbank_bin.h
+
