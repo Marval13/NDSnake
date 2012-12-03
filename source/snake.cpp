@@ -47,6 +47,7 @@ void game_init(game g, int level) {
 	g->isOver = 0;
 	g->lastCommand = 0;
 	g->frame = 0;
+	g->level = level;
 	switch(level) {
 		case 0:
 			g->framesBeforeAction = 14;
@@ -274,7 +275,7 @@ void newApple(game g) {
 void getApple(game g) {
 	newApple(g);
 	g->s->lenght++;
-	g->score++;
+	g->score += g->level+1;
 	return;
 }
 
@@ -312,10 +313,23 @@ void drawApple(game g) {
 	return;
 }
 
+void printInfo(game g) {
+	header();
+	printf("Score: %d\n", g->score);
+	return;
+}
+
 
 /* * * * * * * * * * * * * *
- * User options functions  *
+ * General user functions  *
  * * * * * * * * * * * * * */
+
+// print header
+void header() {
+	consoleClear();
+	printf("NDSnake v%s (by Marval13)\n", _VERSION_);
+	return;
+}
 
 // draw menu and return choice
 char menu() {
@@ -338,8 +352,7 @@ char menu() {
 			return choice;
 
 		// print menu
-		consoleClear();
-		printf("NDSnake v.%s\n", _VERSION_);
+		header();
 		for(i=0; i<2; i++) { // it will be 3 a day...
 			if(choice == i)
 				printf("->");
@@ -351,6 +364,7 @@ char menu() {
 	}
 }
 
+// select level
 int diff(int level) {
 	char choice = level;
 	int i;
@@ -366,14 +380,14 @@ int diff(int level) {
 			return choice;
 
 		// print menu
-		consoleClear();
+		header();
 		printf("Choose your level\n");
 		for(i=0; i<5; i++) { // it will be 3 a day...
 			if(choice == i)
 				printf("->");
 			else
 				printf("  ");
-			printf(" %d\n", i);
+			printf(" %d\n", i+1);
 		}
 		swiWaitForVBlank();
 	}
@@ -387,6 +401,7 @@ int diff(int level) {
 // display some debug variabiles
 void debugInfo(game g) {
 	consoleClear();
+	printf("g->score: %d\n", g->score);
 	printf("g->frame: %d\n", g->frame);
 	printf("g->framesBeforeAction: %d\n", g->framesBeforeAction);
 	printf("g->isOver: %d\n", g->isOver);

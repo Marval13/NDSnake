@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define _VERSION_ "0.9.1"
+#define _VERSION_ "0.9.2"
 
 #define MAXLENGHT 100
 
@@ -39,6 +39,7 @@ typedef _field* field;
 
 struct _game {
 	int score;
+	int level;
 	int isOver;
 	int lastCommand; // 1 is right, then it's counterclockwise
 	int frame;
@@ -112,13 +113,19 @@ void drawGame(game g);
 void drawField(game g);
 void drawSnake(game g);
 void drawApple(game g);
+void printInfo(game g);
 
 /* * * * * * * * * * * * * *
  * User options functions  *
  * * * * * * * * * * * * * */
 
+// print header
+void header();
+
 // draw menu and return choice
 char menu();
+
+// select level
 int diff(int level);
 
 /* * * * * * * * * *

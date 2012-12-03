@@ -26,18 +26,19 @@ int main() {
 				drawGame(g);
 				//debugInfo(g);
 
-				// debug start
-				while(!(keysHeld() & KEY_A))
-					scanKeys();
-
+				// here comes the play loop
 				while(!g->isOver) {
 					drawGame(g);
 					checkCommand(g);
 					updateGame(g);
-					debugInfo(g);
+					//debugInfo(g);
+					printInfo(g);
 
 					swiWaitForVBlank();
 				}
+				while(!(keysDown() & KEY_A))
+					scanKeys();
+				clearScreen();
 				game_destroy(g);
 				break;
 			case 1:	// difficulty
