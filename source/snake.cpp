@@ -279,7 +279,7 @@ void getApple(game g) {
 	return;
 }
 
-// output functions
+// main output functions
 void drawGame(game g) {
 	drawField(g);
 	drawSnake(g);
@@ -313,9 +313,21 @@ void drawApple(game g) {
 	return;
 }
 
+// sub output functions
 void printInfo(game g) {
 	header();
 	printf("Score: %d\n", g->score);
+	return;
+}
+
+void gameOver(game g) {
+	header();
+	printf("\nGAME OVER!\n\n");
+	printf("Your score: %d\n\n", g->score);
+	printf("\n\n\n\nPress A to continue.\n");
+	while(!(keysDown() & KEY_A))
+		scanKeys();
+	clearScreen();
 	return;
 }
 
@@ -327,12 +339,12 @@ void printInfo(game g) {
 // print header
 void header() {
 	consoleClear();
-	printf("NDSnake v%s (by Marval13)\n", _VERSION_);
+	printf("NDSnake v%s (by Marval13)\n\n", _VERSION_);
 	return;
 }
 
 // draw menu and return choice
-char menu() {
+char mainMenu(int level) {
 	char choice = 0;
 	int i;
 	char text[3][15] = {
@@ -360,6 +372,7 @@ char menu() {
 				printf("  ");
 			printf("%s\n", text[i]);
 		}
+		printf("\nDifficulty level: %d\n", level+1);
 		swiWaitForVBlank();
 	}
 }

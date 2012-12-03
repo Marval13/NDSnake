@@ -15,9 +15,10 @@ Features:
 
 
 Incoming:
+ * some nice graphics (title, game over screen, intro, ...)
  * highscore saving
  * mices (food you must run after)
- * tiled graphic
+ * tiled graphics
  * moar
 
 

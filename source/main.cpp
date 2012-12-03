@@ -18,7 +18,7 @@ int main() {
 
 	// and here we go, game loop!
 	while(1) {
-		choice = menu();
+		choice = mainMenu(level);
 		switch(choice) {
 			case 0: // new game
 				clearScreen();
@@ -36,15 +36,13 @@ int main() {
 
 					swiWaitForVBlank();
 				}
-				while(!(keysDown() & KEY_A))
-					scanKeys();
-				clearScreen();
+				gameOver(g);
 				game_destroy(g);
 				break;
 			case 1:	// difficulty
 				level = diff(level);
 				break;
-			case 2:	// highscores
+			case 2:	// highscores - not implemented yet
 				break;
 			default:
 				// I don't know why you are here, but you really shouldn't 

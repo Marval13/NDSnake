@@ -108,12 +108,15 @@ void newApple(game g);
 // if gnam: new apple, snake++, score++, ???, profit!
 void getApple(game g);
 
-// output functions
+// main output functions
 void drawGame(game g);
 void drawField(game g);
 void drawSnake(game g);
 void drawApple(game g);
+
+// sub output functions
 void printInfo(game g);
+void gameOver(game g);
 
 /* * * * * * * * * * * * * *
  * User options functions  *
@@ -123,7 +126,7 @@ void printInfo(game g);
 void header();
 
 // draw menu and return choice
-char menu();
+char mainMenu(int level);
 
 // select level
 int diff(int level);
