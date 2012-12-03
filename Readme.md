@@ -9,4 +9,5 @@ Features incoming:
  * tiled graphic
  * moar
 
-2012 (c) David Barozzini (Marval13)
+2012 (c) David Barozzini (Marval13) 
+dbaro13[at]gmail[dot]com
