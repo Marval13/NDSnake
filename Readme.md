@@ -1,7 +1,6 @@
 NDSnake
-
-A simple snake game for Nintendo DS
-
+=======
+A simple snake game for Nintendo DS  
 Version 0.9.2
 
 Features:
@@ -21,7 +20,6 @@ Incoming:
  * tiled graphics
  * moar
 
-
-2012 (c) David Barozzini (Marval13)
-
+_________________________________________
+2012 (c) David Barozzini (Marval13)  
 dbaro13[at]gmail[dot]com
