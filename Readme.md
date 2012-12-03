@@ -1,10 +1,11 @@
 NDSnake
 
 A simple snake game for Nintendo DS
+Version 0.9.1
 
-To do:
- * level regulation
- * play again cicle
+Features incoming:
  * score system
- * highscore storing
+ * highscore saving
  * moar
+
+2012 (c) David Barozzini (Marval13)

@@ -10,13 +10,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define _VERSION_ "0.9.1"
+
 #define MAXLENGHT 100
 
 struct _snake {
 	int points [MAXLENGHT][2];
 	int last[2];
 	int lenght;
-	int speed;
 	int direction;	// 1 is right, then it's counterclockwise
 
 	u16 color;
@@ -56,13 +57,13 @@ typedef _game* game;
  * * * * * * * * * * * * * * */
 
 // constructors
-game game_create();
+game game_create(int level);
 snake snake_create();
 field field_create();
 apple apple_create();
 
 // initializators
-void game_init(game g);
+void game_init(game g, int level);
 void snake_init(snake s, int x0, int y0);
 void field_init(field f);
 void apple_init(apple a);
@@ -81,6 +82,7 @@ void apple_destroy(apple a);
 // output functions
 int printXY(int x, int y, u16 color);
 int printBlock(game g, int x, int y, u16 color, int thickness);
+void clearScreen();
 
 
 /* * * * * * * * * *
@@ -111,9 +113,17 @@ void drawField(game g);
 void drawSnake(game g);
 void drawApple(game g);
 
+/* * * * * * * * * * * * * *
+ * User options functions  *
+ * * * * * * * * * * * * * */
+
+// draw menu and return choice
+char menu();
+int diff(int level);
 
 /* * * * * * * * * *
  * Debug functions *
  * * * * * * * * * */
 
- void debugInfo(game g);
+// display some debug variabiles
+void debugInfo(game g);

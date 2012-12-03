@@ -13,12 +13,12 @@
  * * * * * * * * * * * * * * */
 
 //constructors
-game game_create() {
+game game_create(int level) {
 	game g = (game) malloc(sizeof(_game));
 	g->s = snake_create();
 	g->f = field_create();
 	g->a = apple_create();
-	game_init(g);
+	game_init(g, level);
 	return g;
 }
 
@@ -41,12 +41,31 @@ apple apple_create() {
 }
 
 // initializators
-void game_init(game g) {
+void game_init(game g, int level) {
 	srand(time(NULL));
 	g->score = 0;
 	g->isOver = 0;
+	g->lastCommand = 0;
 	g->frame = 0;
-	g->framesBeforeAction = 5;
+	switch(level) {
+		case 0:
+			g->framesBeforeAction = 14;
+			break;
+		case 1:
+			g->framesBeforeAction = 11;
+			break;
+		case 2:
+			g->framesBeforeAction = 8;
+			break;
+		case 3:
+			g->framesBeforeAction = 5;
+			break;
+		case 4:
+			g->framesBeforeAction = 3;
+			break;
+		default:
+			exit(-1); // you should stop breaking my programs
+	}
 	g->block = 6;
 	g->bgColor = RGB15(0, 0, 0);
 	field_init(g->f);
@@ -65,7 +84,6 @@ void snake_init(snake s, int x0, int y0) {
 		for (int j=0; j<2; j++)
 			s->points[i][j] = -1;
 	}
-	s->speed = 1;
 	s->direction = 0;
 	s->color = RGB15(0, 31, 0);
 	s->lenght = 1;
@@ -136,6 +154,13 @@ int printBlock(game g, int x, int y, u16 color, int thickness) {
 		for(j=y1; j<y1+thickness; j++)
 			printXY(i, j, color);
 	return 0;
+}
+
+void clearScreen() {
+	int i;
+	for(i=0; i<SCREEN_WIDTH*SCREEN_HEIGHT; i++)
+		VRAM_A[i] = RGB15(0, 0, 0);
+	return;
 }
 
 
@@ -288,13 +313,82 @@ void drawApple(game g) {
 }
 
 
+/* * * * * * * * * * * * * *
+ * User options functions  *
+ * * * * * * * * * * * * * */
+
+// draw menu and return choice
+char menu() {
+	char choice = 0;
+	int i;
+	char text[3][15] = {
+		" New game",
+		" Difficulty",
+		" Highscores"
+	};
+	while(1) {
+
+		// check input
+		scanKeys();
+		if(keysDown() & KEY_UP)
+			choice = (choice + 1) % 2;
+		if(keysDown() & KEY_DOWN)
+			choice = (choice + 1) % 2;
+		if(keysDown() & KEY_A)
+			return choice;
+
+		// print menu
+		consoleClear();
+		printf("NDSnake v.%s\n", _VERSION_);
+		for(i=0; i<2; i++) { // it will be 3 a day...
+			if(choice == i)
+				printf("->");
+			else
+				printf("  ");
+			printf("%s\n", text[i]);
+		}
+		swiWaitForVBlank();
+	}
+}
+
+int diff(int level) {
+	char choice = level;
+	int i;
+	while(1) {
+
+		// check input
+		scanKeys();
+		if(keysDown() & KEY_UP)
+			choice = (choice + 4) % 5;
+		if(keysDown() & KEY_DOWN)
+			choice = (choice + 1) % 5;
+		if(keysDown() & KEY_A)
+			return choice;
+
+		// print menu
+		consoleClear();
+		printf("Choose your level\n");
+		for(i=0; i<5; i++) { // it will be 3 a day...
+			if(choice == i)
+				printf("->");
+			else
+				printf("  ");
+			printf(" %d\n", i);
+		}
+		swiWaitForVBlank();
+	}
+}
+
+
 /* * * * * * * * * *
  * Debug functions *
  * * * * * * * * * */
 
- void debugInfo(game g) {
+// display some debug variabiles
+void debugInfo(game g) {
 	consoleClear();
 	printf("g->frame: %d\n", g->frame);
+	printf("g->framesBeforeAction: %d\n", g->framesBeforeAction);
 	printf("g->isOver: %d\n", g->isOver);
 	printf("g->lastCommand: %d\n", g->lastCommand);
 	printf("\n");
