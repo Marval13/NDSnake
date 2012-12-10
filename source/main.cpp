@@ -7,17 +7,20 @@
 
 #include "snake.h"
 
+// images
+#include "title_bin.h"
+
 int main() {
 	// variables and console stuff
 	game g;
 	char choice, level = 0;
 	consoleDemoInit();
-	videoSetMode(MODE_FB0);
-	vramSetBankA(VRAM_A_LCD);
+	consoleInit();
 	
 
-	// and here we go, game loop!
+	// and here we go, infinite loop!
 	while(1) {
+		printBmp(title_bin);
 		choice = mainMenu(level);
 		switch(choice) {
 			case 0: // new game
@@ -26,7 +29,7 @@ int main() {
 				drawGame(g);
 				//debugInfo(g);
 
-				// here comes the play loop
+				// here comes the game loop
 				while(!g->isOver) {
 					drawGame(g);
 					checkCommand(g);

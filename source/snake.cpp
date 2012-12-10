@@ -136,11 +136,26 @@ void apple_destroy(apple a) {
  * General functions *
  * * * * * * * * * * */
 
+// general init
+void consoleInit() {
+	consoleDemoInit();
+	videoSetMode(MODE_5_2D | DISPLAY_BG3_ACTIVE);
+	vramSetBankA(VRAM_A_MAIN_BG_0x06000000);
+
+	// background initialization
+	BACKGROUND.control[3] = BG_BMP16_256x256 | BG_BMP_BASE(0);
+	BACKGROUND.bg3_rotation.hdx = 1 << 8;
+	BACKGROUND.bg3_rotation.hdy = 0;
+	BACKGROUND.bg3_rotation.vdx = 0;
+	BACKGROUND.bg3_rotation.vdy = 1 << 8;
+}
+
 // output functions
 int printXY(int x, int y, u16 color) {
+	u16* buffer = (u16*)BG_BMP_RAM(0);
 	if(x<0 || x>=SCREEN_WIDTH || y<0 || y>=SCREEN_HEIGHT)
 		return -1;
-	VRAM_A[x+SCREEN_WIDTH*y] = color;
+	buffer[x+SCREEN_WIDTH*y] = color | (1 << 15);
 	return 0;
 }
 
@@ -157,10 +172,23 @@ int printBlock(game g, int x, int y, u16 color, int thickness) {
 	return 0;
 }
 
-void clearScreen() {
+int printBmp(const u8* image) {
+	BmpFile* bmp = (BmpFile*) image;
+	u16* buffer = (u16*)BG_BMP_RAM(0);
 	int i;
 	for(i=0; i<SCREEN_WIDTH*SCREEN_HEIGHT; i++)
-		VRAM_A[i] = RGB15(0, 0, 0);
+		buffer[i] = RGB15(bmp->colors[i].red >> 3,
+						  bmp->colors[i].green >> 3,
+						  bmp->colors[i].blue >> 3)
+						  | (1 << 15);
+	return 0;
+}
+
+void clearScreen() {
+	u16* buffer = (u16*)BG_BMP_RAM(0);
+	int i;
+	for(i=0; i<SCREEN_WIDTH*SCREEN_HEIGHT; i++)
+		buffer[i] = RGB15(0, 0, 0) | (1 << 15);
 	return;
 }
 

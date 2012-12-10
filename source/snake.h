@@ -9,8 +9,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "bitmap.h"
 
-#define _VERSION_ "0.9.2"
+#define _VERSION_ "0.9.3"
 
 #define MAXLENGHT 100
 
@@ -80,9 +81,13 @@ void apple_destroy(apple a);
  * General functions *
  * * * * * * * * * * */
 
+// general init
+void consoleInit();
+
 // output functions
 int printXY(int x, int y, u16 color);
 int printBlock(game g, int x, int y, u16 color, int thickness);
+int printBmp(const u8* image);
 void clearScreen();
 
 
